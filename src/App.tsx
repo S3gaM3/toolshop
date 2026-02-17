@@ -12,6 +12,7 @@ import { WhereToBuy } from './components/WhereToBuy';
 import { Reviews } from './components/Reviews';
 import { CtaBlock } from './components/CtaBlock';
 import { CookieBanner } from './components/CookieBanner';
+import { SEO } from './components/SEO';
 import { CatalogPage } from './pages/CatalogPage';
 import { PrivacyPage } from './pages/PrivacyPage';
 import { ReviewsPage } from './pages/ReviewsPage';
@@ -48,6 +49,7 @@ export default function App() {
   return (
     <BrowserRouter basename="/toolshop">
       <div className="app">
+        <SEO />
         <ScrollToHash />
         <Header />
         <main>

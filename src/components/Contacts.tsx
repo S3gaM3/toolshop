@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
+import { submitForm } from '../config/forms';
 
 type SendStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -28,40 +29,14 @@ export function Contacts() {
       ts: new Date().toISOString(),
     };
 
-    const endpoint =
-      (import.meta.env.VITE_CP_FORM_ENDPOINT as string | undefined) ||
-      (import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined) ||
-      '';
-
     try {
-      if (endpoint) {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const result = await submitForm(payload, 'Запрос КП');
+      if (result.success) {
+        setStatus('sent');
+        setFormData({ name: '', phone: '', email: '', message: '' });
       } else {
-        // Static-site fallback: open prepared email
-        const subject = `Запрос КП — ${payload.name || 'VERTEXTOOLS'}`;
-        const body = [
-          `Имя / компания: ${payload.name}`,
-          `Телефон: ${payload.phone}`,
-          `Email: ${payload.email}`,
-          '',
-          'Сообщение:',
-          payload.message || '—',
-          '',
-          `Страница: ${payload.pageUrl}`,
-          `Время: ${payload.ts}`,
-        ].join('\n');
-
-        const mailto = `mailto:sale@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailto;
+        throw new Error(result.error || 'Ошибка отправки');
       }
-
-      setStatus('sent');
-      setFormData({ name: '', phone: '', email: '', message: '' });
     } catch {
       setStatus('error');
       setErrorText('Не удалось отправить запрос. Попробуйте ещё раз или свяжитесь с нами по телефону.');

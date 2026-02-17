@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { FormEvent } from 'react';
+import { submitForm } from '../config/forms';
 
 type SendStatus = 'idle' | 'sending' | 'sent' | 'error';
 
@@ -110,47 +111,18 @@ export function QuickOrderModal({ isOpen, onClose, productName, productSku }: Qu
       ts: new Date().toISOString(),
     };
 
-    const endpoint =
-      (import.meta.env.VITE_CP_FORM_ENDPOINT as string | undefined) ||
-      (import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined) ||
-      '';
-
     try {
-      if (endpoint) {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const result = await submitForm(payload, 'Купить в один клик');
+      if (result.success) {
+        setStatus('sent');
+        setTimeout(() => {
+          setFormData({ name: '', phone: '', region: '', comment: '' });
+          setStatus('idle');
+          onClose();
+        }, 2000);
       } else {
-        // Static-site fallback: open prepared email
-        const subject = `Купить в один клик — ${payload.productName || 'VERTEXTOOLS'}`;
-        const body = [
-          `Товар: ${payload.productName || '—'}`,
-          `Артикул: ${payload.productSku || '—'}`,
-          '',
-          `Имя: ${payload.name}`,
-          `Телефон: ${payload.phone}`,
-          `Регион: ${payload.region}`,
-          '',
-          'Комментарий:',
-          payload.comment || '—',
-          '',
-          `Страница: ${payload.pageUrl}`,
-          `Время: ${payload.ts}`,
-        ].join('\n');
-
-        const mailto = `mailto:sale@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        window.location.href = mailto;
+        throw new Error(result.error || 'Ошибка отправки');
       }
-
-      setStatus('sent');
-      setTimeout(() => {
-        setFormData({ name: '', phone: '', region: '', comment: '' });
-        setStatus('idle');
-        onClose();
-      }, 2000);
     } catch {
       setStatus('error');
       setErrorText('Не удалось отправить запрос. Попробуйте ещё раз или свяжитесь с нами по телефону.');
