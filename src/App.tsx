@@ -8,7 +8,6 @@ import { CatalogSection } from './components/CatalogSection';
 import { Advantages } from './components/Advantages';
 import { ForWhom } from './components/ForWhom';
 import { Contacts } from './components/Contacts';
-import { StatsStrip } from './components/StatsStrip';
 import { WhereToBuy } from './components/WhereToBuy';
 import { Reviews } from './components/Reviews';
 import { CtaBlock } from './components/CtaBlock';
@@ -22,7 +21,6 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <StatsStrip />
       <About />
       <CatalogSection />
       <Advantages />

@@ -11,7 +11,9 @@ export function Hero() {
 
   return (
     <section className="hero">
-      <div className="hero__top">
+      <div className="hero__banner" aria-label="Промо-баннер VERTEXTOOLS" style={bannerStyle} />
+      
+      <div className="hero__bottom">
         <div className="container hero__content">
           <div className="hero__panel">
             <h1 className="hero__title">Ваш надёжный партнёр в мире инструментов.</h1>
@@ -29,8 +31,6 @@ export function Hero() {
           </div>
         </div>
       </div>
-
-      <div className="hero__banner" aria-label="Промо-баннер VERTEXTOOLS" style={bannerStyle} />
     </section>
   );
 }
