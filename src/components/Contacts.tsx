@@ -1,14 +1,72 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 
-export function Contacts() {
-  const [sent, setSent] = useState(false);
-  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
+type SendStatus = 'idle' | 'sending' | 'sent' | 'error';
 
-  const handleSubmit = (e: FormEvent) => {
+export function Contacts() {
+  const [status, setStatus] = useState<SendStatus>('idle');
+  const [errorText, setErrorText] = useState<string>('');
+  const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
+  const officeAddressDisplay = '117519, г. Москва, Варшавское шоссе, д.148, каб. 402';
+  const officeAddressQuery = 'Москва, Варшавское шоссе, 148';
+  // Coords are used to put an explicit pin on the building.
+  // Source: open web directory listings for "Варшавское шоссе, 148" (may need уточнение под строение/корпус).
+  const officeCoords = { lat: 55.60102, lon: 37.602526 };
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSent(true);
-    setFormData({ name: '', phone: '', email: '', message: '' });
+    if (status === 'sending') return;
+
+    setErrorText('');
+    setStatus('sending');
+
+    const payload = {
+      name: formData.name.trim(),
+      phone: formData.phone.trim(),
+      email: formData.email.trim(),
+      message: formData.message.trim(),
+      pageUrl: window.location.href,
+      ts: new Date().toISOString(),
+    };
+
+    const endpoint =
+      (import.meta.env.VITE_CP_FORM_ENDPOINT as string | undefined) ||
+      (import.meta.env.VITE_FORMSPREE_ENDPOINT as string | undefined) ||
+      '';
+
+    try {
+      if (endpoint) {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } else {
+        // Static-site fallback: open prepared email
+        const subject = `Запрос КП — ${payload.name || 'VERTEXTOOLS'}`;
+        const body = [
+          `Имя / компания: ${payload.name}`,
+          `Телефон: ${payload.phone}`,
+          `Email: ${payload.email}`,
+          '',
+          'Сообщение:',
+          payload.message || '—',
+          '',
+          `Страница: ${payload.pageUrl}`,
+          `Время: ${payload.ts}`,
+        ].join('\n');
+
+        const mailto = `mailto:info@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = mailto;
+      }
+
+      setStatus('sent');
+      setFormData({ name: '', phone: '', email: '', message: '' });
+    } catch {
+      setStatus('error');
+      setErrorText('Не удалось отправить запрос. Попробуйте ещё раз или свяжитесь с нами по телефону.');
+    }
   };
 
   return (
@@ -17,9 +75,9 @@ export function Contacts() {
         <h2 className="section-title">Контакты</h2>
         <div className="contacts__grid">
           <div className="contacts__info">
-            <h3>Склад и офис</h3>
+            <h3>Офис</h3>
             <p className="contacts__address">
-              Московская область, г. Щербинка, ул. Южная, д. 10
+              {officeAddressDisplay}
             </p>
             <p className="contacts__legal">ООО «ВЕРТЕКС ИНСТРУМЕНТ»</p>
             <p>
@@ -30,8 +88,8 @@ export function Contacts() {
             </p>
             <div className="contacts__map">
               <iframe
-                title="Карта: Щербинка, Южная 10"
-                src="https://yandex.ru/map-widget/v1/?ll=37.5119%2C55.4997&z=15&pt=37.5119,55.4997"
+                title={`Карта: ${officeAddressDisplay}`}
+                src={`https://yandex.ru/map-widget/v1/?ll=${officeCoords.lon},${officeCoords.lat}&z=16&pt=${officeCoords.lon},${officeCoords.lat},pm2rdm&l=map`}
                 width="100%"
                 height="240"
                 style={{ border: 0 }}
@@ -40,13 +98,25 @@ export function Contacts() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
+            <p className="contacts__map-link">
+              <a
+                href={`https://yandex.ru/maps/?ll=${officeCoords.lon},${officeCoords.lat}&z=16&pt=${officeCoords.lon},${officeCoords.lat}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Открыть в Яндекс Картах →
+              </a>
+            </p>
           </div>
           <div className="contacts__form-wrap">
             <h3>Запрос коммерческого предложения</h3>
-            {sent ? (
-              <p className="contacts__success">Спасибо! Ваш запрос отправлен. Мы свяжемся с вами в ближайшее время.</p>
+            {status === 'sent' ? (
+              <p className="contacts__success">
+                Спасибо! Запрос принят. Мы свяжемся с вами в ближайшее время.
+              </p>
             ) : (
               <form className="contacts__form" onSubmit={handleSubmit}>
+                {status === 'error' ? <p className="contacts__error">{errorText}</p> : null}
                 <label>
                   <span>Имя / компания</span>
                   <input
@@ -54,6 +124,7 @@ export function Contacts() {
                     required
                     value={formData.name}
                     onChange={(e) => setFormData((d) => ({ ...d, name: e.target.value }))}
+                    disabled={status === 'sending'}
                   />
                 </label>
                 <label>
@@ -63,6 +134,7 @@ export function Contacts() {
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData((d) => ({ ...d, phone: e.target.value }))}
+                    disabled={status === 'sending'}
                   />
                 </label>
                 <label>
@@ -72,6 +144,7 @@ export function Contacts() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData((d) => ({ ...d, email: e.target.value }))}
+                    disabled={status === 'sending'}
                   />
                 </label>
                 <label>
@@ -80,9 +153,12 @@ export function Contacts() {
                     rows={4}
                     value={formData.message}
                     onChange={(e) => setFormData((d) => ({ ...d, message: e.target.value }))}
+                    disabled={status === 'sending'}
                   />
                 </label>
-                <button type="submit" className="btn btn-primary">Отправить</button>
+                <button type="submit" className="btn btn-primary" disabled={status === 'sending'}>
+                  {status === 'sending' ? 'Отправляем…' : 'Отправить'}
+                </button>
               </form>
             )}
           </div>

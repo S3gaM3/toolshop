@@ -1,20 +1,42 @@
-/* VERTEXTOOLS — переменные и база */
+/* VERTEXTOOLS — Light Theme with Pantone Colors */
 :root {
-  --color-primary: #1a365d;
-  --color-primary-dark: #0f2744;
-  --color-accent: #dd6b20;
-  --color-accent-hover: #c05621;
-  --color-graphite: #4a5568;
-  --color-graphite-light: #718096;
-  --color-white: #ffffff;
-  --color-bg: #f7fafc;
-  --color-bg-dark: #edf2f7;
-  --color-text: #2d3748;
+  /* Pantone Colors */
+  --color-cyan: #00B8E6; /* PANTONE HEXACHROME CYAN C */
+  --color-dark-blue: #0A1F3A; /* PANTONE 2154 C */
+  --color-orange: #C05621; /* PANTONE 7597 C */
+  --color-black: #000000; /* BLACK */
+  
+  /* Theme Colors */
+  --color-primary: var(--color-dark-blue);
+  --color-primary-dark: #050A14;
+  --color-accent: var(--color-cyan);
+  --color-accent-hover: #0099CC;
+  --color-accent-orange: var(--color-orange);
+  --color-accent-orange-hover: #A0451A;
+  
+  /* Backgrounds */
+  --color-bg: #FFFFFF;
+  --color-bg-dark: #F7F9FC;
+  --color-bg-card: #FFFFFF;
+  --color-bg-card-hover: #F0F4F8;
+  --color-bg-section: #F7F9FC;
+  
+  /* Text */
+  --color-text: #2D3748;
   --color-text-muted: #718096;
-  --font-sans: 'PT Sans', system-ui, sans-serif;
-  --container: min(1200px, 100% - 2rem);
+  --color-text-light: #FFFFFF;
+  --color-white: #FFFFFF;
+  
+  /* Borders & Dividers */
+  --color-border: #E2E8F0;
+  --color-border-light: #EDF2F7;
+  
+  /* Shadows */
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  
+  --font-sans: 'PT Sans', system-ui, sans-serif;
+  --container: min(1200px, 100% - 2rem);
 }
 
 *,
@@ -33,7 +55,7 @@ body {
   font-size: 16px;
   line-height: 1.6;
   color: var(--color-text);
-  background-color: var(--color-white);
+  background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -97,25 +119,42 @@ button {
 }
 
 .btn-primary {
-  background-color: var(--color-accent);
+  background: var(--color-accent);
   color: var(--color-white);
+  font-weight: 600;
 }
 
 .btn-primary:hover {
-  background-color: var(--color-accent-hover);
+  background: var(--color-accent-hover);
+  box-shadow: var(--shadow);
   text-decoration: none;
+  transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background-color: var(--color-white);
+  background: var(--color-white);
   color: var(--color-primary);
   border: 2px solid var(--color-primary);
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-primary);
+  background: var(--color-primary);
   color: var(--color-white);
   text-decoration: none;
+}
+
+/* Dealer CTA: slightly larger button, safer text */
+.btn--dealer {
+  padding: 0.9rem 1.75rem;
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+  .btn--dealer {
+    font-size: 0.95rem;
+    padding: 0.8rem 1.25rem;
+  }
 }
 
 .section {

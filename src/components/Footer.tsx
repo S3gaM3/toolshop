@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logoUrl from '../assets/logo_310.webp';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -8,7 +9,9 @@ export function Footer() {
       <div className="container footer__inner">
         <div className="footer__top">
           <div className="footer__brand">
-            <span className="footer__logo">VERTEXTOOLS</span>
+            <Link to="/" className="footer__logo" aria-label="VERTEXTOOLS">
+              <img className="footer__logo-img" src={logoUrl} alt="VERTEXTOOLS" />
+            </Link>
             <p className="footer__tagline">Ручной инструмент и расходные материалы для профессионалов</p>
             <p className="footer__about">
               Поставляем продукцию надёжного качества по разумной цене. Сотрудничаем с Лемана ПРО, Озон, Wildberries, ВсеИнструменты, Яндекс Маркет и другими партнёрами по России.

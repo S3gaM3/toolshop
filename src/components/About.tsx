@@ -11,7 +11,7 @@ export function About() {
     <section id="about" className="section about">
       <div className="container">
         <h2 className="section-title">О компании</h2>
-        <div className="about__grid">
+        <div className="about__content">
           <div className="about__text">
             <p>
               Компания «VERTEXTOOLS» работает на рынке с <strong>2010 года</strong>. Основное направление — оптовая и розничная торговля ручным строительным инструментом и расходными материалами.

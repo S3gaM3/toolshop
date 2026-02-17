@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logoUrl from '../assets/logo_310.webp';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -7,8 +8,13 @@ export function Header() {
   return (
     <header className="header">
       <div className="container header__inner">
-        <Link to="/" className="header__logo" onClick={() => setMenuOpen(false)}>
-          VERTEXTOOLS
+        <Link
+          to="/"
+          className="header__logo"
+          aria-label="VERTEXTOOLS"
+          onClick={() => setMenuOpen(false)}
+        >
+          <img className="header__logo-img" src={logoUrl} alt="VERTEXTOOLS" />
         </Link>
         <button
           type="button"
@@ -26,7 +32,7 @@ export function Header() {
           <Link to={{ pathname: '/', hash: 'about' }} onClick={() => setMenuOpen(false)}>О компании</Link>
           <Link to={{ pathname: '/', hash: 'advantages' }} onClick={() => setMenuOpen(false)}>Преимущества</Link>
           <Link to={{ pathname: '/', hash: 'contacts' }} onClick={() => setMenuOpen(false)}>Контакты</Link>
-          <Link to="/catalog" className="btn btn-primary header__cta" onClick={() => setMenuOpen(false)}>
+          <Link to="/catalog" className="btn btn-primary header__cta btn--dealer" onClick={() => setMenuOpen(false)}>
             Стать дилером
           </Link>
         </nav>
