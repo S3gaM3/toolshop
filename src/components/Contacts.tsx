@@ -8,7 +8,6 @@ export function Contacts() {
   const [errorText, setErrorText] = useState<string>('');
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const officeAddressDisplay = '117519, г. Москва, Варшавское шоссе, д.148, каб. 402';
-  const officeAddressQuery = 'Москва, Варшавское шоссе, 148';
   // Coords are used to put an explicit pin on the building.
   // Source: open web directory listings for "Варшавское шоссе, 148" (may need уточнение под строение/корпус).
   const officeCoords = { lat: 55.60102, lon: 37.602526 };
