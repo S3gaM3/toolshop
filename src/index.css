@@ -26,6 +26,7 @@
   --color-text-muted: #718096;
   --color-text-light: #FFFFFF;
   --color-white: #FFFFFF;
+  --color-heading: var(--color-primary);
   
   /* Borders & Dividers */
   --color-border: #E2E8F0;
@@ -35,8 +36,54 @@
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
   
+  /* Status colors */
+  --color-success-bg: #C6F6D5;
+  --color-success-text: #22543D;
+  --color-error-bg: #FED7D7;
+  --color-error-text: #742A2A;
+  
   --font-sans: 'PT Sans', system-ui, sans-serif;
   --container: min(1200px, 100% - 2rem);
+}
+
+/* Dark theme overrides (default theme is light) */
+.theme-dark {
+  color-scheme: dark;
+
+  --color-bg: #070b12;
+  --color-bg-dark: #0b1220;
+  --color-bg-card: #0f1a2e;
+  --color-bg-card-hover: #142443;
+  --color-bg-section: #0b1220;
+
+  --color-text: #e7eef8;
+  --color-text-muted: rgba(231, 238, 248, 0.72);
+  --color-heading: #f3f7ff;
+
+  --color-border: rgba(255, 255, 255, 0.14);
+  --color-border-light: rgba(255, 255, 255, 0.10);
+
+  --shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 18px 44px rgba(0, 0, 0, 0.45);
+  
+  /* Status colors (dark theme) */
+  --color-success-bg: rgba(34, 197, 94, 0.2);
+  --color-success-text: #4ade80;
+  --color-error-bg: rgba(239, 68, 68, 0.2);
+  --color-error-text: #f87171;
+}
+
+/* Dark theme button overrides */
+.theme-dark .btn-secondary {
+  background: var(--color-bg-card);
+  color: var(--color-heading);
+  border-color: var(--color-border);
+}
+
+.theme-dark .btn-secondary:hover {
+  background: var(--color-bg-card-hover);
+  color: var(--color-heading);
+  border-color: var(--color-accent);
 }
 
 *,
@@ -47,6 +94,19 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Hide scrollbars (keep scrolling enabled) */
+html,
+body {
+  -ms-overflow-style: none; /* IE/Edge legacy */
+  scrollbar-width: none; /* Firefox */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 body {
@@ -164,7 +224,7 @@ button {
 .section-title {
   text-align: center;
   margin-bottom: 2rem;
-  color: var(--color-primary);
+  color: var(--color-heading);
 }
 
 .section-title span {

@@ -54,6 +54,7 @@
   gap: 1rem;
 }
 
+
 .header__logo {
   display: inline-flex;
   align-items: center;
@@ -67,20 +68,46 @@
   text-decoration: none;
 }
 
+.theme-toggle {
+  appearance: none;
+  border: none;
+  background: none;
+  color: var(--color-white);
+  padding: 0.5rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.theme-toggle:hover {
+  opacity: 0.8;
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 .header__logo-img {
   height: 44px;
   width: auto;
   display: block;
-  /* White outline so logo pops on dark header */
-  filter:
-    drop-shadow(1px 0 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(-1px 0 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(1px 1px 0 rgba(255, 255, 255, 0.85))
-    drop-shadow(-1px 1px 0 rgba(255, 255, 255, 0.85))
-    drop-shadow(1px -1px 0 rgba(255, 255, 255, 0.85))
-    drop-shadow(-1px -1px 0 rgba(255, 255, 255, 0.85));
+  filter: brightness(0) invert(1);
 }
 
 .header__burger {
@@ -136,6 +163,11 @@
   text-decoration: none;
 }
 
+.header__nav .theme-toggle {
+  align-self: center;
+  margin: 0.25rem 0;
+}
+
 .header__cta {
   margin-top: 0.5rem;
 }
@@ -164,6 +196,10 @@
     padding: 0;
   }
 
+  .header__nav .theme-toggle {
+    margin: 0;
+  }
+
   .header__cta {
     margin-top: 0;
     margin-left: 0.5rem;
@@ -174,11 +210,18 @@
 .hero {
   position: relative;
   color: var(--color-white);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .hero__bottom {
   background: var(--color-bg);
   color: var(--color-text);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .hero__content {
@@ -210,7 +253,7 @@
 .hero__title {
   margin-bottom: 1rem;
   font-size: clamp(1.75rem, 4vw, 2.5rem);
-  color: var(--color-primary);
+  color: var(--color-heading);
   max-width: none;
 }
 
@@ -236,7 +279,11 @@
 
 /* ========== About ========== */
 .about {
-  background: var(--color-bg);
+  background: var(--color-bg-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .about__content {
@@ -271,7 +318,7 @@
 }
 
 .about__fact {
-  background: var(--color-white);
+  background: var(--color-bg-card);
   padding: 1rem 1.25rem;
   border-radius: 8px;
   box-shadow: var(--shadow);
@@ -289,7 +336,7 @@
   font-weight: 700;
   font-size: 1.5rem;
   line-height: 1.2;
-  color: var(--color-primary);
+  color: var(--color-heading);
   margin-bottom: 0.25rem;
 }
 
@@ -301,7 +348,11 @@
 
 /* ========== Catalog preview (home) ========== */
 .catalog-preview {
-  background: var(--color-white);
+  background: var(--color-bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .catalog-preview__intro {
@@ -328,7 +379,7 @@
   flex-direction: column;
   height: 100%;
   padding: 1.5rem;
-  background: var(--color-bg-dark);
+  background: var(--color-bg-card);
   border-radius: 8px;
   border: 2px solid transparent;
   color: var(--color-text);
@@ -360,6 +411,7 @@
 .catalog-preview__card-title {
   margin-bottom: 0.25rem;
   font-size: 1.1rem;
+  color: var(--color-heading);
 }
 
 .catalog-preview__card-desc {
@@ -381,7 +433,7 @@
 
 /* ========== Advantages ========== */
 .advantages {
-  background: linear-gradient(180deg, var(--color-bg-dark) 0%, var(--color-white) 100%);
+  background: var(--color-bg-dark);
   padding: 5rem 0;
   position: relative;
   overflow: hidden;
@@ -430,7 +482,7 @@
 }
 
 .advantages__item {
-  background: var(--color-white);
+  background: var(--color-bg-card);
   padding: 1.5rem 1.25rem;
   border-radius: 14px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -511,7 +563,7 @@
 .advantages__title {
   margin-bottom: 0.75rem;
   font-size: 1.15rem;
-  color: var(--color-primary);
+  color: var(--color-heading);
   font-weight: 700;
   line-height: 1.2;
 }
@@ -549,6 +601,10 @@
 }
 
 /* ========== For Whom ========== */
+.forwhom {
+  background: var(--color-bg);
+}
+
 .forwhom__grid {
   display: grid;
   gap: 1rem;
@@ -593,6 +649,10 @@
 /* ========== Contacts ========== */
 .contacts {
   background: var(--color-bg-dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contacts__grid {
@@ -609,7 +669,7 @@
 .contacts__info h3,
 .contacts__form-wrap h3 {
   margin-bottom: 0.75rem;
-  color: var(--color-primary);
+  color: var(--color-heading);
 }
 
 .contacts__address {
@@ -659,9 +719,9 @@
   padding: 0.5rem 0.75rem;
   font-family: inherit;
   font-size: 1rem;
-  background: var(--color-white);
+  background: var(--color-bg-card);
   color: var(--color-text);
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 
@@ -678,15 +738,15 @@
 
 .contacts__success {
   padding: 1rem;
-  background: #C6F6D5;
-  color: #22543D;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
   border-radius: 8px;
 }
 
 .contacts__error {
   padding: 1rem;
-  background: #FED7D7;
-  color: #742A2A;
+  background: var(--color-error-bg);
+  color: var(--color-error-text);
   border-radius: 8px;
   margin: 0 0 1rem;
 }
@@ -726,16 +786,7 @@
   height: 52px;
   width: auto;
   display: block;
-  /* Same outline on footer dark background */
-  filter:
-    drop-shadow(1px 0 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(-1px 0 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.95))
-    drop-shadow(1px 1px 0 rgba(255, 255, 255, 0.85))
-    drop-shadow(-1px 1px 0 rgba(255, 255, 255, 0.85))
-    drop-shadow(1px -1px 0 rgba(255, 255, 255, 0.85))
-    drop-shadow(-1px -1px 0 rgba(255, 255, 255, 0.85));
+  filter: brightness(0) invert(1);
 }
 
 .footer__tagline {
@@ -825,6 +876,7 @@
 
 .catalog-page__title {
   margin-bottom: 0.5rem;
+  color: var(--color-heading);
 }
 
 .catalog-page__desc {
@@ -846,7 +898,7 @@
 .catalog-page__sidebar-title {
   font-size: 1rem;
   margin-bottom: 0.75rem;
-  color: var(--color-primary);
+  color: var(--color-heading);
 }
 
 .catalog-page__categories {
@@ -886,6 +938,7 @@
 .catalog-page__dealer h3 {
   font-size: 1rem;
   margin-bottom: 0.5rem;
+  color: var(--color-heading);
 }
 
 .catalog-page__dealer p {
@@ -907,9 +960,9 @@
   padding: 0.5rem 1rem;
   font-family: inherit;
   font-size: 1rem;
-  background: var(--color-white);
+  background: var(--color-bg-card);
   color: var(--color-text);
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 
@@ -928,9 +981,9 @@
   padding: 0.5rem 0.75rem;
   font-family: inherit;
   font-size: 0.95rem;
-  background: var(--color-white);
+  background: var(--color-bg-card);
   color: var(--color-text);
-  border: 1px solid #E2E8F0;
+  border: 1px solid var(--color-border);
   border-radius: 6px;
 }
 
@@ -1005,7 +1058,7 @@
 
 /* ========== Product card ========== */
 .product-card {
-  background: var(--color-white);
+  background: var(--color-bg-card);
   border: 1px solid var(--color-border-light);
   border-radius: 8px;
   overflow: hidden;
@@ -1035,8 +1088,8 @@
   justify-content: center;
   font-size: 2rem;
   font-weight: 700;
-  color: #A0AEC0;
-  background: linear-gradient(135deg, var(--color-bg-dark) 0%, #EDF2F7 100%);
+  color: var(--color-text-muted);
+  background: linear-gradient(135deg, var(--color-bg-dark) 0%, var(--color-bg-card-hover) 100%);
 }
 
 .product-card__body {
@@ -1097,7 +1150,7 @@
 .product-card__price {
   font-weight: 700;
   font-size: 1.1rem;
-  color: var(--color-primary);
+  color: var(--color-heading);
 }
 
 .product-card__wholesale {
@@ -1141,7 +1194,7 @@
 
 /* ========== Where to buy ========== */
 .where-to-buy {
-  background: var(--color-white);
+  background: var(--color-bg-dark);
 }
 
 .where-to-buy__intro {
@@ -1190,7 +1243,7 @@
   width: 120px;
   height: 80px;
   padding: 0.5rem;
-  background: var(--color-white);
+  background: var(--color-bg-card);
   border-radius: 8px;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -1213,7 +1266,7 @@
 
 /* ========== Reviews ========== */
 .reviews {
-  background: var(--color-bg-dark);
+  background: var(--color-bg);
 }
 
 .reviews__list {
@@ -1227,7 +1280,7 @@
 }
 
 .reviews__item {
-  background: var(--color-white);
+  background: var(--color-bg-card);
   padding: 1.25rem;
   border-radius: 8px;
   border-left: 4px solid var(--color-accent);
@@ -1332,13 +1385,13 @@
 }
 
 .reviews-page__list h1 {
-  color: var(--color-primary);
+  color: var(--color-heading);
 }
 
 .reviews-page__item {
   margin-bottom: 1.5rem;
   padding: 1.25rem;
-  background: var(--color-white);
+  background: var(--color-bg-card);
   border-radius: 8px;
   border-left: 4px solid var(--color-accent);
   box-shadow: var(--shadow);
