@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logoUrl from '../assets/logo_310.webp';
+import { DealerRequestModal } from './DealerRequestModal';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dealerModalOpen, setDealerModalOpen] = useState(false);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') return 'light';
     return window.localStorage.getItem('vt-theme') === 'dark' ? 'dark' : 'light';
@@ -76,11 +78,19 @@ export function Header() {
               </svg>
             )}
           </button>
-          <Link to="/catalog" className="btn btn-primary header__cta btn--dealer" onClick={() => setMenuOpen(false)}>
+          <button
+            type="button"
+            className="btn btn-primary header__cta btn--dealer"
+            onClick={() => {
+              setMenuOpen(false);
+              setDealerModalOpen(true);
+            }}
+          >
             Стать дилером
-          </Link>
+          </button>
         </nav>
       </div>
+      <DealerRequestModal isOpen={dealerModalOpen} onClose={() => setDealerModalOpen(false)} />
     </header>
   );
 }

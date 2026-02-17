@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { categories, products } from '../data/catalog';
 import { ProductCard } from '../components/ProductCard';
+import { DealerRequestModal } from '../components/DealerRequestModal';
 
 const PAGE_SIZE = 48;
 
@@ -12,6 +13,7 @@ export function CatalogPage() {
   const [filter, setFilter] = useState('');
   const [sort, setSort] = useState<SortKey>('name-asc');
   const [page, setPage] = useState(1);
+  const [dealerModalOpen, setDealerModalOpen] = useState(false);
 
   const selectedCategory = categoryId
     ? categories.find((c) => c.id === categoryId)
@@ -91,7 +93,9 @@ export function CatalogPage() {
             <div id="dealer" className="catalog-page__dealer">
               <h3>Стать дилером</h3>
               <p>Оптовые поставки и выгодные условия. Оставьте заявку в разделе Контакты.</p>
-              <Link to={{ pathname: '/', hash: 'contacts' }} className="btn btn-primary">Оставить заявку</Link>
+              <button type="button" className="btn btn-primary" onClick={() => setDealerModalOpen(true)}>
+                Оставить заявку
+              </button>
             </div>
           </aside>
 
@@ -160,6 +164,7 @@ export function CatalogPage() {
           </div>
         </div>
       </div>
+      <DealerRequestModal isOpen={dealerModalOpen} onClose={() => setDealerModalOpen(false)} />
     </main>
   );
 }
