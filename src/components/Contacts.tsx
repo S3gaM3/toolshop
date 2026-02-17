@@ -56,7 +56,7 @@ export function Contacts() {
           `Время: ${payload.ts}`,
         ].join('\n');
 
-        const mailto = `mailto:info@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailto = `mailto:sale@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         window.location.href = mailto;
       }
 
@@ -83,7 +83,7 @@ export function Contacts() {
               <a href="tel:+74951506057">+7 (495) 150-60-57</a>
             </p>
             <p>
-              <a href="mailto:info@vertextools.ru">info@vertextools.ru</a>
+              <a href="mailto:sale@vertextools.ru">sale@vertextools.ru</a>
             </p>
             <div className="contacts__map">
               <iframe

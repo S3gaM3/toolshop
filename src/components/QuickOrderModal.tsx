@@ -141,7 +141,7 @@ export function QuickOrderModal({ isOpen, onClose, productName, productSku }: Qu
           `Время: ${payload.ts}`,
         ].join('\n');
 
-        const mailto = `mailto:info@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        const mailto = `mailto:sale@vertextools.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         window.location.href = mailto;
       }
 
