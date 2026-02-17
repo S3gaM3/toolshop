@@ -12,7 +12,7 @@ export function Hero() {
   return (
     <section className="hero">
       <div className="hero__top">
-        <div className="hero__content">
+        <div className="container hero__content">
           <div className="hero__panel">
             <h1 className="hero__title">Ваш надёжный партнёр в мире инструментов.</h1>
             <p className="hero__subtitle">
