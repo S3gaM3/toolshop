@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { updateSEO, addStructuredData, getOrganizationSchema, getWebSiteSchema } from '../utils/seo';
+import { updateSEO, addStructuredData, clearStructuredData, getOrganizationSchema, getWebSiteSchema } from '../utils/seo';
 import { categories } from '../data/catalog';
 
-const BASE_URL = 'https://yourusername.github.io/toolshop';
+const BASE_URL = 'https://s3gam3.github.io/toolshop';
 
 const PAGE_SEO: Record<string, { title: string; description: string }> = {
   '/': {
@@ -54,6 +54,9 @@ export function SEO() {
       url: `${BASE_URL}${pathname}`,
     });
 
+    // Очистить старые структурированные данные перед добавлением новых
+    clearStructuredData();
+    
     // Добавить структурированные данные для организации (на всех страницах)
     addStructuredData(getOrganizationSchema());
 

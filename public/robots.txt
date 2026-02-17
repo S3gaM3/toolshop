@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://yourusername.github.io/toolshop/sitemap.xml
+Sitemap: https://s3gam3.github.io/toolshop/sitemap.xml
 
 # Disallow admin and private areas (if any)
 # Disallow: /admin/

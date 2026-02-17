@@ -12,22 +12,24 @@ export interface SEOData {
   siteName?: string;
 }
 
-const DEFAULT_SEO: SEOData = {
+const DEFAULT_SEO = {
   title: 'VERTEXTOOLS — Ручной инструмент и расходные материалы для профессионалов',
   description: 'VERTEXTOOLS — надёжный поставщик ручного строительного инструмента и расходных материалов. Опт и розница по России и СНГ с 2010 года.',
   keywords: 'ручной инструмент, строительный инструмент, расходные материалы, опт, розница, VERTEXTOOLS, инструменты для профессионалов',
   image: '/toolshop/logo-light.ico',
-  url: 'https://yourusername.github.io/toolshop/',
-  type: 'website',
+  url: 'https://s3gam3.github.io/toolshop/',
+  type: 'website' as const,
   siteName: 'VERTEXTOOLS',
-};
+} as const;
 
 /**
  * Обновить SEO meta теги на странице
  */
 export function updateSEO(data: SEOData = {}) {
+  if (typeof window === 'undefined') return;
+  
   const seo = { ...DEFAULT_SEO, ...data };
-  const baseUrl = 'https://yourusername.github.io/toolshop';
+  const baseUrl = 'https://s3gam3.github.io/toolshop';
   const fullUrl = seo.url || `${baseUrl}${window.location.pathname}`;
   const imageUrl = seo.image?.startsWith('http') 
     ? seo.image 
@@ -37,22 +39,28 @@ export function updateSEO(data: SEOData = {}) {
   if (seo.title) {
     document.title = seo.title;
   }
-  updateMetaTag('description', seo.description || DEFAULT_SEO.description, 'name');
-  updateMetaTag('keywords', seo.keywords || DEFAULT_SEO.keywords, 'name');
+  const description = seo.description ?? DEFAULT_SEO.description;
+  const keywords = seo.keywords ?? DEFAULT_SEO.keywords;
+  const title = seo.title ?? DEFAULT_SEO.title;
+  const siteName = seo.siteName ?? DEFAULT_SEO.siteName;
+  const type = seo.type ?? DEFAULT_SEO.type;
+
+  updateMetaTag('description', description, 'name');
+  updateMetaTag('keywords', keywords, 'name');
 
   // Open Graph
-  updateMetaTag('og:title', seo.title || DEFAULT_SEO.title, 'property');
-  updateMetaTag('og:description', seo.description || DEFAULT_SEO.description, 'property');
+  updateMetaTag('og:title', title, 'property');
+  updateMetaTag('og:description', description, 'property');
   updateMetaTag('og:image', imageUrl, 'property');
   updateMetaTag('og:url', fullUrl, 'property');
-  updateMetaTag('og:type', seo.type || 'website', 'property');
-  updateMetaTag('og:site_name', seo.siteName || DEFAULT_SEO.siteName, 'property');
+  updateMetaTag('og:type', type, 'property');
+  updateMetaTag('og:site_name', siteName, 'property');
   updateMetaTag('og:locale', 'ru_RU', 'property');
 
   // Twitter Card
   updateMetaTag('twitter:card', 'summary_large_image', 'name');
-  updateMetaTag('twitter:title', seo.title || DEFAULT_SEO.title, 'name');
-  updateMetaTag('twitter:description', seo.description || DEFAULT_SEO.description, 'name');
+  updateMetaTag('twitter:title', title, 'name');
+  updateMetaTag('twitter:description', description, 'name');
   updateMetaTag('twitter:image', imageUrl, 'name');
 
   // Canonical URL
@@ -63,7 +71,7 @@ export function updateSEO(data: SEOData = {}) {
  * Обновить или создать meta тег
  */
 function updateMetaTag(name: string, content: string, attribute: 'name' | 'property' = 'name') {
-  if (!content) return;
+  if (typeof document === 'undefined' || !content) return;
 
   if (name === 'title') {
     document.title = content;
@@ -85,6 +93,8 @@ function updateMetaTag(name: string, content: string, attribute: 'name' | 'prope
  * Обновить canonical URL
  */
 function updateCanonical(url: string) {
+  if (typeof document === 'undefined') return;
+  
   let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;
   
   if (!link) {
@@ -98,17 +108,26 @@ function updateCanonical(url: string) {
 
 /**
  * Добавить структурированные данные (JSON-LD)
+ * Можно вызывать несколько раз для добавления нескольких схем
  */
 export function addStructuredData(data: Record<string, unknown>) {
-  // Удалить существующие JSON-LD скрипты
-  const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
-  existingScripts.forEach(script => script.remove());
-
-  // Добавить новые структурированные данные
+  if (typeof document === 'undefined') return;
+  
+  // Добавить новые структурированные данные (не удаляем существующие, чтобы можно было добавлять несколько)
   const script = document.createElement('script');
   script.type = 'application/ld+json';
   script.textContent = JSON.stringify(data);
   document.head.appendChild(script);
+}
+
+/**
+ * Очистить все структурированные данные
+ */
+export function clearStructuredData() {
+  if (typeof document === 'undefined') return;
+  
+  const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
+  existingScripts.forEach(script => script.remove());
 }
 
 /**
@@ -120,8 +139,8 @@ export function getOrganizationSchema() {
     '@type': 'Organization',
     name: 'VERTEXTOOLS',
     legalName: 'ООО «ВЕРТЕКС ИНСТРУМЕНТ»',
-    url: 'https://yourusername.github.io/toolshop/',
-    logo: 'https://yourusername.github.io/toolshop/logo-light.ico',
+    url: 'https://s3gam3.github.io/toolshop/',
+    logo: 'https://s3gam3.github.io/toolshop/logo-light.ico',
     description: 'Надёжный поставщик ручного строительного инструмента и расходных материалов',
     address: {
       '@type': 'PostalAddress',
@@ -155,12 +174,12 @@ export function getWebSiteSchema() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'VERTEXTOOLS',
-    url: 'https://yourusername.github.io/toolshop/',
+    url: 'https://s3gam3.github.io/toolshop/',
     potentialAction: {
       '@type': 'SearchAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://yourusername.github.io/toolshop/catalog?q={search_term_string}',
+        urlTemplate: 'https://s3gam3.github.io/toolshop/catalog?q={search_term_string}',
       },
       'query-input': 'required name=search_term_string',
     },

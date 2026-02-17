@@ -96,13 +96,15 @@ export async function submitForm(
       })
       .concat(
         '',
-        `Страница: ${payload.pageUrl || window.location.href}`,
+        `Страница: ${payload.pageUrl || (typeof window !== 'undefined' ? window.location.href : '')}`,
         `Время: ${payload.ts || new Date().toISOString()}`
       )
       .join('\n');
 
     const mailto = `mailto:${config.fallbackEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
+    if (typeof window !== 'undefined') {
+      window.location.href = mailto;
+    }
     return { success: true };
   }
 }

@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yourusername.github.io/toolshop/</loc>
+    <loc>https://s3gam3.github.io/toolshop/</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/catalog</loc>
+    <loc>https://s3gam3.github.io/toolshop/catalog</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/catalog/hand-tools</loc>
+    <loc>https://s3gam3.github.io/toolshop/catalog/hand-tools</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/catalog/consumables</loc>
+    <loc>https://s3gam3.github.io/toolshop/catalog/consumables</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/catalog/power-tool-accessories</loc>
+    <loc>https://s3gam3.github.io/toolshop/catalog/power-tool-accessories</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/catalog/assembly</loc>
+    <loc>https://s3gam3.github.io/toolshop/catalog/assembly</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/catalog/measuring</loc>
+    <loc>https://s3gam3.github.io/toolshop/catalog/measuring</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/reviews</loc>
+    <loc>https://s3gam3.github.io/toolshop/reviews</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://yourusername.github.io/toolshop/privacy</loc>
+    <loc>https://s3gam3.github.io/toolshop/privacy</loc>
     <lastmod>2026-02-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
