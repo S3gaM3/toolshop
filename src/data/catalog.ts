@@ -49,7 +49,7 @@ function toProduct(raw: RawProduct, index: number): Product {
 }
 
 const rawProducts = (vertextoolsData as { products?: RawProduct[] }).products ?? [];
-export const products: Product[] =
+const defaultProductsList: Product[] =
   rawProducts.length > 0
     ? rawProducts.map(toProduct)
     : [
@@ -114,3 +114,5 @@ export const products: Product[] =
           priceWholesale: 'от 70 ₽',
         },
       ];
+
+export const products: Product[] = defaultProductsList;

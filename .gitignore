@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# CMS Admin Panel (disabled - requires server-side storage)
+src/pages/AdminPage.tsx
+src/pages/LoginPage.tsx
+src/hooks/useContent.ts
+src/hooks/useCatalog.ts
+src/utils/auth.ts
+src/components/AdminRoute.tsx
